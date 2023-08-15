@@ -32,7 +32,7 @@ export const FormContainer = styled.form`
   justify-content: center;
   padding: 10px;
   min-height: 100vh;
-  width: 50%;
+  width: 70%;
   background-color: #ffffff;
 `
 export const Input = styled.input`
@@ -55,6 +55,9 @@ export const GenerateButton = styled.button`
 `
 
 export const OutputContainer = styled.div`
-  background-image: ${props => props.imageUrl};
-  width: 50%;
+  background-image: url(${props => props.imageUrl});
+  background-position: center;
+  background-size: cover;
+  width: 1060px;
+  height: 420px;
 `

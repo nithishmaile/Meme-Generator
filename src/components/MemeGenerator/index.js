@@ -86,63 +86,87 @@ class MemeGenerator extends Component {
     })
   }
 
-  render() {
+  renderMeme = () => {
     const {topText, bottomText, imageUrl, fontSize} = this.state
+
+    return (
+      <OutputContainer imageUrl={imageUrl} data-testid="meme">
+        <LabelParagraph as="p" color="#ffffff" fontSize={fontSize}>
+          {topText}
+        </LabelParagraph>
+        <LabelParagraph as="p" color="#ffffff" fontSize={fontSize}>
+          {bottomText}
+        </LabelParagraph>
+      </OutputContainer>
+    )
+  }
+
+  renderGenerateForm = () => {
+    const {
+      imageUrlInput,
+      bottomTextInput,
+      topTextInput,
+      fontSizeInput,
+    } = this.state
+
+    return (
+      <FormContainer onClick={this.onClickGenerate}>
+        <MemeGeneratorHeading>Meme Generator</MemeGeneratorHeading>
+        <LabelParagraph htmlFor="image" color="#7e858e" fontSize="15px">
+          Image Url
+        </LabelParagraph>
+        <Input
+          id="image"
+          type="text"
+          placeholder="Enter the Image Url"
+          onChange={this.onChangeImageUrl}
+          value={imageUrlInput}
+        />
+        <LabelParagraph htmlFor="topText" color="#7e858e" fontSize="15px">
+          Top Text
+        </LabelParagraph>
+        <Input
+          id="topText"
+          type="text"
+          placeholder="Enter the Top Text"
+          onChange={this.onChangeTopText}
+          value={topTextInput}
+        />
+        <LabelParagraph htmlFor="bottomText" color="#7e858e" fontSize="15px">
+          Bottom Text
+        </LabelParagraph>
+        <Input
+          id="bottomText"
+          type="text"
+          placeholder="Enter the Bottom Text"
+          onChange={this.onChangeBottomText}
+          value={bottomTextInput}
+        />
+        <LabelParagraph htmlFor="select" color="#7e858e" fontSize="15px">
+          Font Size
+        </LabelParagraph>
+        <LabelParagraph
+          as="select"
+          id="select"
+          onChange={this.onChangeFontsize}
+          value={fontSizeInput}
+        >
+          {fontSizesOptionsList.map(eachObj => (
+            <option id={eachObj.optionId} key={eachObj.optionId}>
+              {eachObj.displayText}
+            </option>
+          ))}
+        </LabelParagraph>
+        <GenerateButton type="submit">Generate</GenerateButton>
+      </FormContainer>
+    )
+  }
+
+  render() {
     return (
       <MemeGeneratorContainer>
-        <FormContainer onClick={this.onClickGenerate}>
-          <MemeGeneratorHeading>Meme Generator</MemeGeneratorHeading>
-          <LabelParagraph htmlFor="image" color="#7e858e" fontSize="15px">
-            Image Url
-          </LabelParagraph>
-          <Input
-            id="image"
-            type="text"
-            placeholder="Enter the Image Url"
-            onChange={this.onChangeImageUrl}
-          />
-          <LabelParagraph htmlFor="topText" color="#7e858e" fontSize="15px">
-            Top Text
-          </LabelParagraph>
-          <Input
-            id="topText"
-            type="text"
-            placeholder="Enter the Top Text"
-            onChange={this.onChangeTopText}
-          />
-          <LabelParagraph htmlFor="bottomText" color="#7e858e" fontSize="15px">
-            Bottom Text
-          </LabelParagraph>
-          <Input
-            id="bottomText"
-            type="text"
-            placeholder="Enter the Bottom Text"
-            onChange={this.onChangeBottomText}
-          />
-          <LabelParagraph htmlFor="select" color="#7e858e" fontSize="15px">
-            Font Size
-          </LabelParagraph>
-          <LabelParagraph
-            as="select"
-            id="select"
-            onChange={this.onChangeFontsize}
-          >
-            {fontSizesOptionsList.map(eachObj => (
-              <option id={eachObj.optionId} key={eachObj.optionId}>
-                {eachObj.displayText}
-              </option>
-            ))}
-          </LabelParagraph>
-          <GenerateButton type="submit">Generate</GenerateButton>
-        </FormContainer>
-        <OutputContainer imageUrl={imageUrl} data-testid="meme">
-          <LabelParagraph as="p" color="#ffffff" fontSize={fontSize}>
-            {topText}
-          </LabelParagraph>
-          <LabelParagraph as="p" color="#ffffff" fontSize={fontSize}>
-            {bottomText}
-          </LabelParagraph>
-        </OutputContainer>
+        {this.renderGenerateForm()}
+        {this.renderMeme()}
       </MemeGeneratorContainer>
     )
   }
